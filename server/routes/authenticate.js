@@ -4,6 +4,6 @@ import ctrl from '../controllers/authenticate';
 const router = express.Router();
 
 // generate token
-router.get('/', ctrl.login);
+router.post('/', ctrl.login);
 
 export default module.exports = router;

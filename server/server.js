@@ -31,9 +31,9 @@ app.get('*', (req, res) => {
 app.listen(port, () => {
     console.log('Express listening on port', port);
 });
-
+/*
 require('./models/user').sequelize.sync({ force: true }).then(() => {
     console.log('DB sync: User');
 });
-
+*/
 export default module.exports = app;

@@ -31,7 +31,7 @@ export default module.exports = {
                 username : user.username
             }, secretKey, {
                 // 24 hours
-                expiresInMinutes : 1440
+                expiresIn : '24h'
             });
 
             // return token
