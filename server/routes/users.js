@@ -8,4 +8,4 @@ router.get('/:id', ctrl.get);
 router.post('/', ctrl.create);
 router.delete('/:id', ctrl.destroy);
 
-export default router;
+export default module.exports = router;

@@ -8,10 +8,14 @@ const sequelize = new Sequelize(
 );
 
 const User = sequelize.define('user', {
-    name: Sequelize.STRING
+    username: Sequelize.STRING,
+    email: Sequelize.STRING,
+    name: Sequelize.STRING,
+    password: Sequelize.STRING,
+    updatedAt: 'updateTimestamp'
 });
 
-export default {
+export default module.exports = {
     sequelize: sequelize,
     User: User
 };

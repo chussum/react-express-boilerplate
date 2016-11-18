@@ -4,7 +4,6 @@ import bodyParser from 'body-parser';
 import WebpackDevServer from 'webpack-dev-server';
 import webpack from 'webpack';
 import config from '../config';
-import users from './routes/users';
 
 const port = config.port || 3000;
 const app = express();
@@ -24,10 +23,8 @@ if (process.env.NODE_ENV == 'development') {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/', express.static(__dirname + '/../public'));
-app.use('/users', users);
-app.get('/hello', (req, res) => {
-    return res.send('HELLO WORLD');
-});
+app.use('/users', require('./routes/users'));
+app.use('/authenticate', require('./routes/authenticate'));
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../public', 'index.html'));
 });
@@ -35,8 +32,8 @@ app.listen(port, () => {
     console.log('Express listening on port', port);
 });
 
-require('/models/user').sequelize.sync({ force: true }).then(() => {
+require('./models/user').sequelize.sync({ force: true }).then(() => {
     console.log('DB sync: User');
 });
 
-export default app;
+export default module.exports = app;

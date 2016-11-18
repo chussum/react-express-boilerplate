@@ -4,6 +4,7 @@
 #Dependency
     body-parser
     express
+    jsonwebtoken
     mysql
     react
     react-dom,

@@ -26419,7 +26419,7 @@
 	                _react2.default.createElement(
 	                    'h1',
 	                    null,
-	                    'BASIC PROJECT!'
+	                    'THIS IS BASIC PROJECT!'
 	                ),
 	                _react2.default.createElement(
 	                    'ul',
@@ -26492,7 +26492,7 @@
 	            return _react2.default.createElement(
 	                'h2',
 	                null,
-	                'Hey, I am HOME!'
+	                'HOME'
 	            );
 	        }
 	    }]);
@@ -26541,7 +26541,7 @@
 	            return _react2.default.createElement(
 	                'h2',
 	                null,
-	                'Hey, I am ABOUT!'
+	                'ABOUT'
 	            );
 	        }
 	    }]);

@@ -1,6 +1,6 @@
 import models from '../models/user';
 
-export default {
+export default module.exports = {
     findAll(req, res) {
         models.User.findAll().then(users => res.json(users));
     },
@@ -21,11 +21,20 @@ export default {
         });
     },
     create(req, res) {
+        const username = req.body.name.trim() || false;
+        const password = req.body.name.trim() || false;
         const name = req.body.name.trim() || false;
-        if (!name) {
+        if (!username || !password || !name) {
             return res.status(400).json({error: 'Invalid name'});
         }
-        models.User.create({name: name}).then(user => res.status(201).json(user));
+
+        models.User.create({
+            username: username,
+            password: password,
+            name: name
+        }).then(user => {
+            res.status(201).json(user)
+        });
     },
     destroy(req, res) {
         const id = parseInt(req.params.id, 10);
@@ -40,4 +49,4 @@ export default {
             res.status(204).send();
         });
     }
-}
+};
