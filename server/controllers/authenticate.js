@@ -9,7 +9,8 @@ export default module.exports = {
             where: {
                 username: req.body.username
             }
-        }).then(user => {
+        })
+        .then(user => {
             if (!user) {
                 return res.status(404).json({
                     success: false,

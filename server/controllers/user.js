@@ -45,7 +45,8 @@ export default module.exports = {
             username: username,
             password: password,
             name: name
-        }).then(user => {
+        })
+        .then(user => {
             // generate token
             user.token = jwt.sign({
                 id: user.id,
@@ -59,14 +60,11 @@ export default module.exports = {
                 where: {
                     id: user.id
                 }
-            }).then(() => {
-                res.status(201).json(user);
-            }).catch(err => {
-                return res.status(400).json(err);
-            });
-        }).catch(err => {
-            return res.status(400).json(err);
-        });
+            })
+            .then(res.status(201).json(user))
+            .catch(err => res.status(400).json(err));
+        })
+        .catch(err => res.status(400).json(err));
     },
     destroy(req, res) {
         const id = parseInt(req.params.id, 10);
@@ -77,7 +75,8 @@ export default module.exports = {
             where: {
                 id: id
             }
-        }).then((result) => {
+        })
+        .then(() => {
             res.status(204).send();
         });
     }

@@ -2,7 +2,7 @@
     this project is very simple.
 
 #Language
-    EXMAScript2015 (ES6)
+    ECMAScript2015 (ES6)
 
 #How to Use it?
     1. install nodejs, mysql
