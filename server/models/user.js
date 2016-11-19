@@ -1,20 +1,16 @@
-import Sequelize from 'sequelize';
-import config from '../../config';
+export default module.exports = (sequelize, DataTypes) => {
+    const User = sequelize.define('User', {
+        username: {
+            type: DataTypes.STRING,
+            unique: false,
+            allowNull: false
+        },
+        password: DataTypes.STRING,
+        name: DataTypes.STRING,
+        email: DataTypes.STRING,
+        token: DataTypes.STRING,
+        facebookToken: DataTypes.STRING
+    });
 
-const sequelize = new Sequelize(
-    config.db.database,
-    config.db.username,
-    config.db.password
-);
-
-const User = sequelize.define('user', {
-    username: Sequelize.STRING,
-    email: Sequelize.STRING,
-    name: Sequelize.STRING,
-    password: Sequelize.STRING
-});
-
-export default module.exports = {
-    sequelize: sequelize,
-    User: User
+    return User;
 };

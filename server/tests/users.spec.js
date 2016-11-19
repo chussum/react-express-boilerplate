@@ -2,12 +2,18 @@ import should from 'should';
 import request from 'supertest';
 import server from '../server';
 
-describe('POST /users',() => {
+before(() => {
+    return require('../models').sequelize.sync({
+        force: true
+    });
+});
+
+describe('POST /user',() => {
     it('should return user object', done => {
         const username = 'test';
         const password = 'test';
         const name = '테스트';
-        request(server).post('/users').send({
+        request(server).post('/user').send({
             username: username,
             password: password,
             name: name
@@ -20,9 +26,13 @@ describe('POST /users',() => {
     });
 
     it('should return 400 with empty name', done => {
-        request(server).post('/users').send({name: '   '}).expect(400).end((err, res) => {
+        request(server).post('/user').send({
+            username: '',
+            password: '',
+            name: '  '
+        }).expect(400).end((err, res) => {
             if (err) throw err;
-            res.body.should.have.properties('error');
+            res.body.should.have.properties('message');
             done();
         });
     });
@@ -44,9 +54,9 @@ describe('GET /users', () => {
     });
 });
 
-describe('GET /users/:id',() => {
+describe('GET /user/:id',() => {
     it('should return user object', done => {
-        request(server).get('/users/1').expect(200).end((err, res) => {
+        request(server).get('/user/1').expect(200).end((err, res) => {
             if (err) throw err;
             res.body.should.have.properties('id', 'name', 'username');
             res.body.id.should.be.a.Number();
@@ -56,34 +66,34 @@ describe('GET /users/:id',() => {
     });
 
     it('should return 400 on invalid id', done => {
-        request(server).get('/users/abc').expect(400).end((err, res) => {
+        request(server).get('/user/abc').expect(400).end((err, res) => {
             if (err) throw err;
-            res.body.should.have.properties('error');
+            res.body.should.have.properties('message');
             done();
         });
     });
 
     it('should return 404 on no id', done => {
-        request(server).get('/users/9999').expect(404).end((err, res) => {
+        request(server).get('/user/9999').expect(404).end((err, res) => {
             if (err) throw err;
-            res.body.should.have.properties('error');
+            res.body.should.have.properties('message');
             done();
         });
     });
 });
 
-describe('DELETE /users/:id',() => {
+describe('DELETE /user/:id',() => {
     it('should return 204', done => {
-        request(server).delete('/users/1').expect(204).end((err, res) => {
+        request(server).delete('/user/1').expect(204).end((err, res) => {
             if (err) throw err;
             done();
         });
     });
 
     it('should return 400 on invalid id', done => {
-        request(server).delete('/users/abc').expect(400).end((err, res) => {
+        request(server).delete('/user/abc').expect(400).end((err, res) => {
             if (err) throw err;
-            res.body.should.have.properties('error');
+            res.body.should.have.properties('message');
             done();
         });
     });

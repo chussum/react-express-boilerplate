@@ -1,10 +1,9 @@
 import jwt from 'jsonwebtoken';
-import models from '../models/user';
+import models from '../models';
 
-const secretKey = 'iluvhyungdewdewdewkwon';
+const secretKey = global.secretKey;
 
 export default module.exports = {
-    // generate token
     login(req, res) {
         models.User.findOne({
             where: {
@@ -17,35 +16,24 @@ export default module.exports = {
                     message: 'No user'
                 });
             }
-
             if (user.password !== req.body.password) {
                 return res.json({
                     success: false,
                     meesage: 'Invalid password'
                 });
             }
-
-            // generate token
-            var token = jwt.sign({
-                name : user.name,
-                username : user.username
-            }, secretKey, {
-                // 24 hours
-                expiresIn : '24h'
-            });
-
-            // return token
+            // return user token
             res.json({
                 success : true,
                 message : 'this is your token',
-                token : token
+                token : user.token
             });
         });
     },
-    authenticate(req, res, next) {
-        var token = req.body.token || req.param('token') || req.headers['x-access-token'];
+    auth(req, res, next) {
+        var token = req.body.token || req.params.token || req.headers['x-access-token'];
         if (token){
-            jwt.verify(token, secretKey, function(err, decoded) {
+            jwt.verify(token, secretKey, (err, decoded) => {
                 if (err) {
                     return res.status(403).send({
                         success : false,

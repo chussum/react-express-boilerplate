@@ -23,17 +23,20 @@ if (process.env.NODE_ENV == 'development') {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/', express.static(__dirname + '/../public'));
-app.use('/users', require('./routes/users'));
-app.use('/authenticate', require('./routes/authenticate'));
+app.use('/', require('./routes'));
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../public', 'index.html'));
 });
-app.listen(port, () => {
-    console.log('Express listening on port', port);
-});
-/*
-require('./models/user').sequelize.sync({ force: true }).then(() => {
-    console.log('DB sync: User');
-});
-*/
+
+require('./models')
+    .sequelize
+    .sync({
+        force: true
+    })
+    .then(function () {
+        app.listen(port, () => {
+            console.log('Express listening on port', port);
+        });
+    });
+
 export default module.exports = app;

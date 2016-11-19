@@ -1,7 +1,20 @@
 #Basic Project: React
     this project is very simple.
 
+#Language
+    EXMAScript2015 (ES6)
+
+#How to Use it?
+    1. install nodejs, mysql
+    2. npm install
+    3. modify the config file
+        ./config/index.js
+        ./webpack.config.js
+        ./webpack.dev.config.js
+    4. npm run dev
+
 #Dependency
+    bcrypt-nodejs
     body-parser
     express
     jsonwebtoken
