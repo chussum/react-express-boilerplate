@@ -25,7 +25,7 @@ if (process.env.NODE_ENV == 'development') {
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());/* use session */
+app.use(bodyParser.json());
 app.use(session({
     secret: secretKey,
     resave: false,
@@ -33,14 +33,14 @@ app.use(session({
 }));
 app.use('/', express.static(__dirname + '/../public'));
 app.use('/', require('./routes'));
-app.get('*', (req, res) => {
+app.get('**', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../public', 'index.html'));
 });
 
 /* handle error */
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).send('THROWS ERROR');
+    res.status(500).send('500 Error');
 });
 
 require('./models')
