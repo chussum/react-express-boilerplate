@@ -6,6 +6,7 @@
 
 #How to Use it?
     1. install nodejs, mysql
+    2. npm install -g babel-cli nodemon cross-env
     2. npm install
     3. modify the config file
         ./config/index.js
@@ -18,6 +19,7 @@
     body-parser
     express
     jsonwebtoken
+    morgan
     mysql
     react
     react-dom,
@@ -31,9 +33,11 @@
     babel-preset-es2015
     babel-preset-react
     babel-register
+    css-loader
     mocha
     react-hot-loader
     should
+    style-loader
     supertest
     webpack
     webpack-dev-server
