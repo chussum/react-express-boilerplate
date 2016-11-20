@@ -12,6 +12,7 @@ router.delete('/user/:id', user.destroy);
 
 // login
 router.post('/login', authenticate.login);
+router.post('/logout', authenticate.logout);
 
 // required token route
 router.get('/profile', authenticate.auth, (req, res) => {

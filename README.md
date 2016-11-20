@@ -14,7 +14,7 @@
     4. npm run dev
 
 #Dependency
-    bcrypt-nodejs
+    bcryptjs
     body-parser
     express
     jsonwebtoken

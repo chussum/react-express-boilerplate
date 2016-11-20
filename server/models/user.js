@@ -1,3 +1,5 @@
+import bcrypt from 'bcryptjs';
+
 export default module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
         username: {
@@ -10,6 +12,15 @@ export default module.exports = (sequelize, DataTypes) => {
         email: DataTypes.STRING,
         token: DataTypes.STRING,
         facebookToken: DataTypes.STRING
+    }, {
+        instanceMethods: {
+            generateHash: function(password) {
+                return bcrypt.hashSync(password, 8);
+            },
+            validPassword: function(password) {
+                return bcrypt.compareSync(password, this.password);
+            },
+        }
     });
 
     return User;

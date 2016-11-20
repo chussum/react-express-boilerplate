@@ -12,17 +12,24 @@ export default module.exports = {
         })
         .then(user => {
             if (!user) {
-                return res.status(404).json({
+                return res.status(401).json({
                     success: false,
                     message: 'No user'
                 });
             }
-            if (user.password !== req.body.password) {
-                return res.json({
+
+            // validate password
+            if(!user.validPassword(req.body.password)) {
+                return res.status(401).json({
                     success: false,
-                    meesage: 'Invalid password'
+                    message: 'Invalid password'
                 });
             }
+
+            // alter session
+            let session = req.session;
+            session.token = user.token;
+
             // return user token
             res.json({
                 success : true,
@@ -31,8 +38,14 @@ export default module.exports = {
             });
         });
     },
+    logout(req, res) {
+        req.session.destroy(err => {
+            if (err) throw err;
+        });
+        return res.json({success: true});
+    },
     auth(req, res, next) {
-        var token = req.body.token || req.params.token || req.headers['x-access-token'];
+        var token = req.session.token || req.body.token || req.params.token || req.headers['x-access-token'];
         if (token){
             jwt.verify(token, secretKey, (err, decoded) => {
                 if (err) {

@@ -37,34 +37,63 @@ export default module.exports = {
         if (!username || !password || !name) {
             return res.status(400).json({
                 success: false,
-                message: 'Invalid name'
+                message: 'Invalid value'
             });
         }
 
-        models.User.create({
-            username: username,
-            password: password,
-            name: name
-        })
-        .then(user => {
-            // generate token
-            user.token = jwt.sign({
-                id: user.id,
-                username: user.username
-            }, secretKey);
+        // validate username
+        let usernameRegex = /^[a-z0-9]+$/;
+        if(!usernameRegex.test(username)) {
+            return res.status(400).json({
+                success: false,
+                message: "bad username",
+            });
+        }
 
-            // update token value
-            models.User.update({
-                token: user.token
-            }, {
-                where: {
-                    id: user.id
-                }
-            })
-            .then(res.status(201).json(user))
-            .catch(err => res.status(400).json(err));
-        })
-        .catch(err => res.status(400).json(err));
+        models.User.findOne({
+            where: {
+                username: username
+            }
+        }).then(exists => {
+            if (exists) {
+                return res.status(409).json({
+                    success: false,
+                    message: "already username exists"
+                });
+            }
+
+            // create user
+            models.sequelize.transaction(function (t) {
+                return models.User.create({
+                    username: username,
+                    name: name
+                }, {
+                    transaction: t
+                })
+                    .then(user => {
+                        // set password
+                        user.password = user.generateHash(password);
+
+                        // generate token
+                        user.token = jwt.sign({
+                            id: user.id,
+                            username: user.username
+                        }, secretKey);
+
+                        // update token value
+                        return user.update({
+                            password: user.password,
+                            token: user.token
+                        }, {
+                            transaction: t
+                        })
+                    })
+            }).then((result) => {
+                res.status(201).json(result);
+            }).catch((err) => {
+                res.status(400).json(err);
+            });
+        });
     },
     destroy(req, res) {
         const id = parseInt(req.params.id, 10);
