@@ -2,8 +2,7 @@ import jwt from 'jsonwebtoken';
 import models from '../models';
 
 const secretKey = global.secretKey;
-
-export default module.exports = {
+const user = {
     findAll(req, res) {
         models.User.findAll().then(users => res.json(users));
     },
@@ -110,3 +109,5 @@ export default module.exports = {
         });
     }
 };
+
+export default user;

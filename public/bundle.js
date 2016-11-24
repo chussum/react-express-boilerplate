@@ -21507,21 +21507,11 @@
 	                        { to: '/about' },
 	                        'About'
 	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'li',
-	                    null,
-	                    _react2.default.createElement(
-	                        _reactRouter.Link,
-	                        { to: '/topics' },
-	                        'Topics'
-	                    )
 	                )
 	            ),
 	            _react2.default.createElement('hr', null),
 	            _react2.default.createElement(_reactRouter.Match, { exactly: true, pattern: '/', component: Home }),
 	            _react2.default.createElement(_reactRouter.Match, { pattern: '/about', component: About }),
-	            _react2.default.createElement(_reactRouter.Match, { pattern: '/topics', component: Topics }),
 	            _react2.default.createElement(_reactRouter.Miss, { component: _NoMatch2.default })
 	        )
 	    );
@@ -21547,72 +21537,6 @@
 	            'h2',
 	            null,
 	            'About'
-	        )
-	    );
-	};
-
-	var Topics = function Topics(_ref) {
-	    var pathname = _ref.pathname,
-	        pattern = _ref.pattern;
-	    return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	            'h2',
-	            null,
-	            'Topics'
-	        ),
-	        _react2.default.createElement(
-	            'ul',
-	            null,
-	            _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                    _reactRouter.Link,
-	                    { to: pathname + '/rendering' },
-	                    'Rendering with React'
-	                )
-	            ),
-	            _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                    _reactRouter.Link,
-	                    { to: pathname + '/components' },
-	                    'Components'
-	                )
-	            ),
-	            _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                    _reactRouter.Link,
-	                    { to: pathname + '/props-v-state' },
-	                    'Props v. State'
-	                )
-	            )
-	        ),
-	        _react2.default.createElement(_reactRouter.Match, { pattern: pathname + '/:topicId', component: Topic }),
-	        _react2.default.createElement(_reactRouter.Match, { pattern: pathname, exactly: true, render: function render() {
-	                return _react2.default.createElement(
-	                    'h3',
-	                    null,
-	                    'Please select a topic'
-	                );
-	            } })
-	    );
-	};
-
-	var Topic = function Topic(_ref2) {
-	    var params = _ref2.params;
-	    return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	            'h3',
-	            null,
-	            params.topicId
 	        )
 	    );
 	};
@@ -25530,8 +25454,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var NoMatch = function NoMatch(_ref) {
-	    var location = _ref.location;
+	var NoMatch = function NoMatch() {
 	    return _react2.default.createElement(
 	        'div',
 	        null,
@@ -25543,8 +25466,7 @@
 	        _react2.default.createElement(
 	            'p',
 	            null,
-	            '404 Not Found:asd ',
-	            location.pathname
+	            '404 Not Found'
 	        )
 	    );
 	};

@@ -2,8 +2,7 @@ import jwt from 'jsonwebtoken';
 import models from '../models';
 
 const secretKey = global.secretKey;
-
-export default module.exports = {
+const authenticate = {
     login(req, res) {
         models.User.findOne({
             where: {
@@ -66,3 +65,5 @@ export default module.exports = {
         }
     }
 };
+
+export default authenticate;

@@ -14,7 +14,7 @@ const App = () => (
             <Match pattern="/about" component={About} />
             <Miss component={NoMatch}/>
         </div>
-    </Router>
+     </Router>
 );
 
 const Home = () => (
