@@ -8,3 +8,5 @@
 /public/*.css
 /node_modules
 /vendor
+/conf.d
+/config/config.json
