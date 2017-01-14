@@ -1,2 +1,10 @@
-build
-node_modules
+.DS_Store
+.idea
+.tags*
+/composer.phar
+/*.lock
+/build
+/public/bundle.js
+/public/*.css
+/node_modules
+/vendor

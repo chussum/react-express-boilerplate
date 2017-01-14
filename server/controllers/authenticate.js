@@ -1,7 +1,5 @@
 import jwt from 'jsonwebtoken';
-import models from '../models';
 
-const secretKey = global.secretKey;
 const authenticate = {
     login(req, res) {
         models.User.findOne({
@@ -44,7 +42,8 @@ const authenticate = {
         return res.json({success: true});
     },
     auth(req, res, next) {
-        var token = req.session.token || req.body.token || req.params.token || req.headers['x-access-token'];
+        let secretKey = req.app.secretKey;
+        let token = req.headers['x-access-token'] || req.body.token || req.session.token;
         if (token){
             jwt.verify(token, secretKey, (err, decoded) => {
                 if (err) {

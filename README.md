@@ -1,52 +1,25 @@
-#Basic Project: React
-    this project is very simple.
-
-#Language
+# Language
     ECMAScript2015 (ES6)
+    
+# Description
+    This Project is very simple. 
+    Based on node >= 6.9.2
 
-#How to Use it?
-    1. install nodejs, mysql
-    2. npm install -g babel-cli nodemon cross-env
-    2. npm install
-    3. modify the config file
-        ./config/index.js
-        ./webpack.config.js
-        ./webpack.dev.config.js
-    4. npm run dev
-
-#Dependency
-    bcryptjs
-    body-parser
-    express
-    jsonwebtoken
-    morgan
-    mysql
-    react
-    react-dom,
-    react-router
-    sequelize
-
-#DevDependency
-    babel-core
-    babel-loader
-    babel-polyfill
-    babel-preset-es2015
-    babel-preset-react
-    babel-preset-stage-0
-    babel-register
-    css-loader
-    mocha
-    react-hot-loader
-    should
-    style-loader
-    supertest
-    webpack
-    webpack-dev-server
-
-#Author
-    iamdew
-    email: iam@hyungdew.com
-    blog: http://blog.hyungdew.com
-    website: http://hyungdew.com
-
-
+# Usage
+#### 1. Install nodejs, mariadb or mysql
+    brew update
+    brew install mariadb
+    mysql_install_db
+    mysql.server start
+#### 2. Install yarn
+    npm install -g yarn
+#### 3. Modify the config file
+    ./config/config.json
+#### 4. run server
+    for development
+      $ yarn dev
+    for production
+      $ yarn start
+    
+# Migration
+    ./node_modules/.bin/sequelize db:migrate

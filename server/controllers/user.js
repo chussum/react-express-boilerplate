@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import models from '../models';
 
-const secretKey = global.secretKey;
 const user = {
     findAll(req, res) {
         models.User.findAll().then(users => res.json(users));
@@ -62,6 +61,7 @@ const user = {
             }
 
             // create user
+            let secretKey = req.app.secretKey;
             models.sequelize.transaction(function (t) {
                 return models.User.create({
                     username: username,
@@ -69,24 +69,24 @@ const user = {
                 }, {
                     transaction: t
                 })
-                    .then(user => {
-                        // set password
-                        user.password = user.generateHash(password);
+                .then(user => {
+                    // set password
+                    user.password = user.generateHash(password);
 
-                        // generate token
-                        user.token = jwt.sign({
-                            id: user.id,
-                            username: user.username
-                        }, secretKey);
+                    // generate token
+                    user.token = jwt.sign({
+                        id: user.id,
+                        username: user.username
+                    }, secretKey);
 
-                        // update token value
-                        return user.update({
-                            password: user.password,
-                            token: user.token
-                        }, {
-                            transaction: t
-                        })
+                    // update token value
+                    return user.update({
+                        password: user.password,
+                        token: user.token
+                    }, {
+                        transaction: t
                     })
+                })
             }).then((result) => {
                 res.status(201).json(result);
             }).catch((err) => {

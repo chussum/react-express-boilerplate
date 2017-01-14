@@ -1,9 +1,9 @@
 import React from 'react';
 
-const NoMatch = () => (
+const NoMatch = ({ location }) => (
     <div>
-        <h2>Whoops</h2>
-        <p>404 Not Found</p>
+        <h1>Whoops</h1>
+        <p>Not Found {location.pathname}</p>
     </div>
 );
 

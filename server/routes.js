@@ -4,6 +4,13 @@ import authenticate from './controllers/authenticate';
 
 const router = express.Router();
 
+// required token route
+router.get('/profile', authenticate.auth, (req, res) => {
+    res.send({
+        message: 'OK'
+    });
+});
+
 // user
 router.get('/users', user.findAll);
 router.get('/user/:id', user.get);
@@ -12,13 +19,6 @@ router.delete('/user/:id', user.destroy);
 
 // login
 router.post('/login', authenticate.login);
-router.post('/logout', authenticate.logout);
+router.get('/logout', authenticate.logout);
 
-// required token route
-router.get('/profile', authenticate.auth, (req, res) => {
-    res.json({
-        message: 'TEST OK'
-    });
-});
-
-export default module.exports = router;
+export default router;
