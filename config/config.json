@@ -13,7 +13,7 @@
     "development": {
         "username": "root",
         "password": "",
-        "database": "smtm",
+        "database": "basic",
         "host": "127.0.0.1",
         "port": 3306,
         "dialect": "mariadb"
@@ -21,7 +21,7 @@
     "test": {
         "username": "root",
         "password": "",
-        "database": "smtm",
+        "database": "basic",
         "host": "127.0.0.1",
         "port": 3306,
         "dialect": "mariadb"
