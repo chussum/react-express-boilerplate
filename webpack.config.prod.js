@@ -1,25 +1,33 @@
+const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     entry: [
-        './src/index.js'
+        './src/client.js'
     ],
     output: {
         path: __dirname + '/public',
         filename: 'bundle.js'
     },
     plugins: [
-        new ExtractTextPlugin('www.css', {
+        new ExtractTextPlugin({
+            filename: 'www.css',
             allChunks: false
-        })
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            minimize: true,
+            output: {
+                comments: false,
+            }
+        }),
     ],
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js$/,
-                loader: 'babel',
+                loader: 'babel-loader',
                 exclude: /node_modules/,
-                query: {
+                options: {
                     cacheDirectory: true,
                     presets: ['es2015', 'react', 'stage-0'],
                     plugins: [
@@ -29,13 +37,21 @@ module.exports = {
                 }
             },
             {
+                test: /\.(ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
+                loader: 'url-loader',
+                options: {
+                    name: 'img/[name].[ext]',
+                    limit: 10000,
+                },
+            },
+            {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract('style-loader', 'css-loader'),
+                loader: ExtractTextPlugin.extract('css-loader'),
                 exclude: /node_modules/
             },
             {
                 test: /\.less$/,
-                loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!less-loader'),
+                loader: ExtractTextPlugin.extract('css-loader!postcss-loader!less-loader'),
                 exclude: /node_modules/
             }
         ]

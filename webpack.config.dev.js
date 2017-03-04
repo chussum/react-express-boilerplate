@@ -1,15 +1,14 @@
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const path = require('path');
-const webpack = require('webpack');
-const config = require('./config');
-const port = config.port;
-const devPort = config.devPort;
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import webpack from 'webpack';
+import dotenv from 'dotenv';
+dotenv.config(); // LOAD CONFIG
+process.noDeprecation = true;
 
 module.exports = {
-    devtool: 'inline-source-map',
+    devtool: 'source-map',
     entry: [
-        './src/index.js',
-        'webpack-dev-server/client?http://0.0.0.0:' + devPort,
+        './src/client.js',
+        'webpack-dev-server/client?http://0.0.0.0:' + process.env.DEVPORT,
         'webpack/hot/only-dev-server'
     ],
     output: {
@@ -23,24 +22,24 @@ module.exports = {
         historyApiFallback: true,
         contentBase: './public',
         proxy: {
-            "**": 'http://127.0.0.1:' + port
+            "**": 'http://127.0.0.1:' + process.env.PORT
         }
     },
     plugins: [
-        new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin(),
-        new ExtractTextPlugin('www.css', {
+        new webpack.NoEmitOnErrorsPlugin(),
+        new ExtractTextPlugin({
+            filename: 'www.css',
             allChunks: false
         })
     ],
     module: {
-        loaders: [
+        rules: [
             {
                 test: /.js$/,
-                loader: 'babel',
+                loader: 'babel-loader',
                 exclude: /node_modules/,
-                query: {
+                options: {
                     cacheDirectory: true,
                     presets: ['es2015', 'react', 'stage-0'],
                     plugins: [
@@ -51,13 +50,21 @@ module.exports = {
                 }
             },
             {
+                test: /\.(ico|png|jpe?g|gif|svg|woff|woff2|ttf|eot)$/,
+                loader: 'url-loader',
+                options: {
+                    name: 'img/[name].[ext]',
+                    limit: 10000
+                },
+            },
+            {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract('style-loader', 'css-loader'),
+                loader: ExtractTextPlugin.extract('css-loader?sourceMap'),
                 exclude: /node_modules/
             },
             {
                 test: /\.less$/,
-                loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!less-loader'),
+                loader: ExtractTextPlugin.extract('css-loader?sourceMap!postcss-loader?sourceMap!less-loader?sourceMap'),
                 exclude: /node_modules/
             }
         ]

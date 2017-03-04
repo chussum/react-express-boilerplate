@@ -2,24 +2,15 @@
     ECMAScript2015 (ES6)
     
 # Description
-    This Project is very simple. 
-    Based on node >= 6.9.2
+    This Project is Serverside rendering for react on express.
 
 # Usage
-#### 1. Install nodejs, mariadb or mysql
-    brew update
-    brew install mariadb
-    mysql_install_db
-    mysql.server start
-#### 2. Install yarn
-    npm install -g yarn
-#### 3. Modify the config file
-    ./config/config.json
-#### 4. run server
+#### 1. Install yarn and pm2
+    npm install -g yarn pm2
+#### 2. Rename config file and then edit the file.
+    .envcpy to .env
+#### 3. run server
     for development
-      $ yarn dev
-    for production
-      $ yarn start
-    
-# Migration
-    ./node_modules/.bin/sequelize db:migrate
+      $ yarn start:dev
+    for production (using pm2)
+      $ yarn start:prod
