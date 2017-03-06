@@ -29,4 +29,7 @@
     for production (using pm2)
       $ yarn start:prod
     ```
-    
+     
+## License
+
+MIT
