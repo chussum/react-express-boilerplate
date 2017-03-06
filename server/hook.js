@@ -4,7 +4,7 @@ const lessParser = require('postcss-less').parse;
 
 assetHook({
     extensions: ['ico', 'png', 'jpg', 'jpeg', 'gif', 'svg', 'ttf', 'eot', 'woff', 'woff2'],
-    name: 'img/[name].[ext]',
+    name: 'assets/[hash].[ext]',
     limit: 10000
 });
 

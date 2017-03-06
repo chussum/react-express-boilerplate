@@ -1,15 +1,13 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import webpack from 'webpack';
 import dotenv from 'dotenv';
-dotenv.config(); // LOAD CONFIG
-process.noDeprecation = true;
+dotenv.config();
 
+process.noDeprecation = true;
 module.exports = {
     devtool: 'source-map',
     entry: [
-        './src/client.js',
-        'webpack-dev-server/client?http://0.0.0.0:' + process.env.DEVPORT,
-        'webpack/hot/only-dev-server'
+        './src/client.js'
     ],
     output: {
         path: '/',
@@ -43,7 +41,6 @@ module.exports = {
                     cacheDirectory: true,
                     presets: ['es2015', 'react', 'stage-0'],
                     plugins: [
-                        'react-hot-loader/babel',
                         'transform-decorators-legacy',
                         'transform-class-properties'
                     ]
@@ -53,7 +50,7 @@ module.exports = {
                 test: /\.(ico|png|jpe?g|gif|svg|woff|woff2|ttf|eot)$/,
                 loader: 'url-loader',
                 options: {
-                    name: 'img/[name].[ext]',
+                    name: 'assets/[hash].[ext]',
                     limit: 10000
                 },
             },

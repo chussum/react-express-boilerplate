@@ -11,7 +11,7 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { match, RouterContext } from 'react-router'
 import dotenv from 'dotenv';
-dotenv.config(); // LOAD CONFIG
+dotenv.config();
 
 const port = process.env.PORT;
 const app = express();
@@ -41,7 +41,7 @@ app.get('*', (req, res) => {
             res.redirect(302, redirect.pathname + redirect.search)
         } else if (props) {
             res.status(200).render(path.resolve(__dirname, '..', 'src', 'index.pug'), {
-                TITLE: '뚠 플레이스',
+                TITLE: 'React & Express Boilerplate',
                 CONTENT: renderToString(<RouterContext {...props} />)
             });
         } else {

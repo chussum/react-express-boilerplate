@@ -40,7 +40,7 @@ module.exports = {
                 test: /\.(ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
                 loader: 'url-loader',
                 options: {
-                    name: 'img/[name].[ext]',
+                    name: 'assets/[hash].[ext]',
                     limit: 10000,
                 },
             },

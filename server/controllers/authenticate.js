@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-dotenv.config(); // LOAD CONFIG
+dotenv.config();
 
 export const auth = (req, res, next) => {
     let secretKey = process.env.SECRET_KEY;

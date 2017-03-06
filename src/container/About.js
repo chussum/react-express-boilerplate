@@ -3,7 +3,7 @@ import React from 'react';
 export default () => {
     return (
         <div>
-            소개
+            About Page.
         </div>
     );
 };
