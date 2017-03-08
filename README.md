@@ -1,3 +1,6 @@
+# react-express-boilerplate
+Server Side Rendering using express.
+
 ## Getting started
 
 ### Prerequisites
@@ -32,4 +35,4 @@
      
 ## License
 
-MIT
+MIT License

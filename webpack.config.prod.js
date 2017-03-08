@@ -1,5 +1,6 @@
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = {
     entry: [
@@ -11,7 +12,7 @@ module.exports = {
     },
     plugins: [
         new ExtractTextPlugin({
-            filename: 'www.css',
+            filename: 'www.min.css',
             allChunks: false
         }),
         new webpack.optimize.UglifyJsPlugin({
@@ -20,6 +21,13 @@ module.exports = {
                 comments: false,
             }
         }),
+        new OptimizeCssAssetsPlugin({
+            cssProcessorOptions: {
+                discardComments: {
+                    removeAll: true
+                }
+            }
+        })
     ],
     module: {
         rules: [

@@ -27,7 +27,7 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
         new ExtractTextPlugin({
-            filename: 'www.css',
+            filename: 'www.min.css',
             allChunks: false
         })
     ],
