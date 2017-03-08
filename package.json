@@ -1,6 +1,6 @@
 {
   "name": "react-express-boilerplate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,10 @@
     "react server",
     "reactjs",
     "react express",
-    "express"
+    "express",
+    "boilerplate",
+    "server",
+    "serverside"
   ],
   "author": "iamdew <iam@hyungdew.com>",
   "license": "MIT",
