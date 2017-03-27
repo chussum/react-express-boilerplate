@@ -14,9 +14,14 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const isDev = (process.env.NODE_ENV == 'development');
-const title = process.env.SITENAME;
+const title = process.env.TITLE;
 const port = process.env.PORT;
 const app = express();
+
+if (!port) {
+    console.error('please rename config file and then edit the file. (.envcpy to .env)');
+    process.exit(0);
+}
 
 if (isDev) {
     console.log('Server is running on development mode');

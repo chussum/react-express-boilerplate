@@ -11,13 +11,4 @@ ReactDOM.render(
     document.getElementById('app')
 );
 
-if (module && module.hot) {
-    module.hot.accept(() => {
-        ReactDOM.render(
-            <AppContainer>
-                <Router routes={routes} history={browserHistory}/>
-            </AppContainer>,
-            document.getElementById('app')
-        );
-    });
-}
+module.hot && module.hot.accept();
