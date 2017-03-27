@@ -15,7 +15,6 @@ html(lang='ko')
         link(rel='stylesheet' href='/www.min.css')
         block head
     body
-        if CONTENT
-            div(id='app') !{CONTENT}
+        div(id='app') !{CONTENT}
         script(src='/bundle.js')
         block script

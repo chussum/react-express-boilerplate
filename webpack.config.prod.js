@@ -15,10 +15,17 @@ module.exports = {
             filename: 'www.min.css',
             allChunks: false
         }),
+        new webpack.LoaderOptionsPlugin({
+            minimize: true,
+        }),
         new webpack.optimize.UglifyJsPlugin({
             minimize: true,
+            compress: {
+                warnings: false,
+                unused: true
+            },
             output: {
-                comments: false,
+                comments: false
             }
         }),
         new OptimizeCssAssetsPlugin({

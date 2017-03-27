@@ -13,10 +13,12 @@ import { match, RouterContext } from 'react-router'
 import dotenv from 'dotenv';
 dotenv.config();
 
+const isDev = (process.env.NODE_ENV == 'development');
+const title = process.env.SITENAME;
 const port = process.env.PORT;
 const app = express();
 
-if (process.env.NODE_ENV == 'development') {
+if (isDev) {
     console.log('Server is running on development mode');
 
     let config = require('../webpack.config.dev');
@@ -34,15 +36,15 @@ app.use(bodyParser.json());
 app.use('/api', api);
 app.use('/', express.static(path.join(__dirname, '..', 'public')));
 app.get('*', (req, res) => {
-    match({ routes: routes, location: req.url }, (err, redirect, props) => {
+    match({routes: routes, location: req.url}, (err, redirect, props) => {
         if (err) {
             res.status(500).send(err.message)
         } else if (redirect) {
             res.redirect(302, redirect.pathname + redirect.search)
         } else if (props) {
             res.status(200).render(path.resolve(__dirname, '..', 'src', 'index.pug'), {
-                TITLE: 'React & Express Boilerplate',
-                CONTENT: renderToString(<RouterContext {...props} />)
+                TITLE: title,
+                CONTENT: !isDev && renderToString(<RouterContext {...props} />)
             });
         } else {
             res.status(404).send('Not found')

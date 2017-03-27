@@ -1,12 +1,13 @@
 import React from 'react';
 
-const Home = () => {
-    return (
-        <div>
-            Index Page.
-            <img src={require('../_/img/sb.png')} />
-        </div>
-    );
-};
+class Home extends React.Component {
+    render() {
+        return (
+            <div>
+                Home page.
+            </div>
+        )
+    }
+}
 
 export default Home;

@@ -1,12 +1,25 @@
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import webpack from 'webpack';
-import dotenv from 'dotenv';
-dotenv.config();
+const webpack = require("webpack");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
+require('dotenv').config();
 
 process.noDeprecation = true;
+
 module.exports = {
-    devtool: 'source-map',
+    devtool: 'eval',
     entry: [
+        // activate HMR for React
+        'react-hot-loader/patch',
+
+        // bundle the client for webpack-dev-server
+        // and connect to the provided endpoint
+        `webpack-dev-server/client?http://0.0.0.0:${process.env.DEVPORT}`,
+
+        // bundle the client for hot reloading
+        // only- means to only hot reload for successful updates
+        'webpack/hot/only-dev-server',
+
+        // the entry point of our app
         './src/client.js'
     ],
     output: {
@@ -20,12 +33,15 @@ module.exports = {
         historyApiFallback: true,
         contentBase: './public',
         proxy: {
-            "**": 'http://127.0.0.1:' + process.env.PORT
+            "**": `http://127.0.0.1:${process.env.PORT}`
         }
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.LoaderOptionsPlugin({
+            minimize: true,
+        }),
         new ExtractTextPlugin({
             filename: 'www.min.css',
             allChunks: false
@@ -36,15 +52,16 @@ module.exports = {
             {
                 test: /.js$/,
                 loader: 'babel-loader',
-                exclude: /node_modules/,
                 options: {
                     cacheDirectory: true,
                     presets: ['es2015', 'react', 'stage-0'],
                     plugins: [
+                        'react-hot-loader/babel',
                         'transform-decorators-legacy',
                         'transform-class-properties'
                     ]
-                }
+                },
+                exclude: /node_modules/,
             },
             {
                 test: /\.(ico|png|jpe?g|gif|svg|woff|woff2|ttf|eot)$/,
