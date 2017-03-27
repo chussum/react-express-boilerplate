@@ -6,7 +6,7 @@ require('dotenv').config();
 process.noDeprecation = true;
 
 module.exports = {
-    devtool: 'eval',
+    devtool: '#source-map',
     entry: [
         // activate HMR for React
         'react-hot-loader/patch',

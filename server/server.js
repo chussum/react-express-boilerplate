@@ -41,8 +41,8 @@ app.use(bodyParser.json());
 app.use('/api', api);
 app.use('/', express.static(path.join(__dirname, '..', 'public')));
 app.get('*', (req, res) => {
-    const context = {};
-    const html = ReactDOMServer.renderToString(
+    let context = {};
+    let html = ReactDOMServer.renderToString(
         <StaticRouter
             location={req.url}
             context={context}
@@ -50,13 +50,14 @@ app.get('*', (req, res) => {
             {routes}
         </StaticRouter>
     );
+
     if (context.url) {
         res.redirect(301, context.url);
     } else {
-        let content = !isDev && html;
         res.render(path.resolve(__dirname, '..', 'src', 'index.pug'), {
             TITLE: title,
-            CONTENT: content
+            CONTENT: html,
+            DEVELOPMENT: isDev,
         });
     }
 });
