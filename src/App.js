@@ -1,15 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router';
-import './_/css/common.less';
+import BrowserRouter from 'react-router-dom/BrowserRouter';
+import HashRouter from 'react-router-dom/HashRouter';
+import routes from './routes';
+
+const Router = history.pushState ? BrowserRouter : HashRouter;
 
 class App extends React.Component {
     render() {
         return (
-            <div>
-                <Link to={'/'} className="menu-item">Index</Link>
-                <Link to={'/about'} className="menu-item">About</Link>
-                {this.props.children}
-            </div>
+            <Router>
+                {routes}
+            </Router>
         );
     }
 }

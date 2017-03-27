@@ -1,4 +1,8 @@
 import './hook';
+import React from 'react'
+import ReactDOMServer from 'react-dom/server'
+import { StaticRouter } from 'react-router'
+import routes from '../src/routes';
 import path from 'path';
 import morgan from 'morgan';
 import express from 'express';
@@ -6,10 +10,6 @@ import bodyParser from 'body-parser';
 import webpack from 'webpack';
 import webpackDevServer from 'webpack-dev-server';
 import api from './routes';
-import routes from '../src/routes';
-import React from 'react'
-import { renderToString } from 'react-dom/server'
-import { match, RouterContext } from 'react-router'
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -41,20 +41,24 @@ app.use(bodyParser.json());
 app.use('/api', api);
 app.use('/', express.static(path.join(__dirname, '..', 'public')));
 app.get('*', (req, res) => {
-    match({routes: routes, location: req.url}, (err, redirect, props) => {
-        if (err) {
-            res.status(500).send(err.message)
-        } else if (redirect) {
-            res.redirect(302, redirect.pathname + redirect.search)
-        } else if (props) {
-            res.status(200).render(path.resolve(__dirname, '..', 'src', 'index.pug'), {
-                TITLE: title,
-                CONTENT: !isDev && renderToString(<RouterContext {...props} />)
-            });
-        } else {
-            res.status(404).send('Not found')
-        }
-    })
+    const context = {};
+    const html = ReactDOMServer.renderToString(
+        <StaticRouter
+            location={req.url}
+            context={context}
+        >
+            {routes}
+        </StaticRouter>
+    );
+    if (context.url) {
+        res.redirect(301, context.url);
+    } else {
+        let content = !isDev && html;
+        res.render(path.resolve(__dirname, '..', 'src', 'index.pug'), {
+            TITLE: title,
+            CONTENT: content
+        });
+    }
 });
 app.use((err, req, res) => {
     res.status(500).send('500 Error');

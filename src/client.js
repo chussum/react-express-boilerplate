@@ -1,12 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Router, browserHistory } from 'react-router'
-import routes from './routes'
 import AppContainer from 'react-hot-loader/lib/AppContainer';
+import App from './App'
 
 ReactDOM.render(
     <AppContainer>
-        <Router routes={routes} history={browserHistory}/>
+        <App/>
     </AppContainer>,
     document.getElementById('app')
 );
