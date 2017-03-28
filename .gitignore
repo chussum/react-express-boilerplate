@@ -1,7 +1,10 @@
 node_modules
 build
+yarn.lock
+npm-debug.log
 .env
 .idea
+.DS_STORE
+
 public/*
 !public/robots.txt
-yarn.lock
