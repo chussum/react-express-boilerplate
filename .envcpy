@@ -1,4 +1,0 @@
-PORT=4000
-DEVPORT=3000
-SECRET_KEY="SECRET_KEY"
-TITLE="React & Express Boilerplate"

@@ -13,7 +13,7 @@ module.exports = {
 
         // bundle the client for webpack-dev-server
         // and connect to the provided endpoint
-        `webpack-dev-server/client?http://0.0.0.0:${process.env.DEVPORT}`,
+        `webpack-dev-server/client?http://0.0.0.0:${process.env.DEV_PORT}`,
 
         // bundle the client for hot reloading
         // only- means to only hot reload for successful updates

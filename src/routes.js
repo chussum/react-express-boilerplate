@@ -3,8 +3,8 @@ import Route from 'react-router-dom/Route';
 import Redirect from 'react-router-dom/Redirect';
 import Switch from 'react-router-dom/Switch';
 import Link from 'react-router-dom/Link';
-import Home from './container/Home'
-import About from './container/About'
+import Home from './container/Home';
+import About from './container/About';
 
 export default (
     <div>
